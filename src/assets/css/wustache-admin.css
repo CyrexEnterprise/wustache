@@ -1,0 +1,73 @@
+/**
+ *	Edit Post box
+ */
+#wustache-edit-post	.inside h3 { padding-left: 0; }
+
+#wustache-edit-post	select { width: 100%; }
+
+#wustache-edit-post	.images li {
+	background: no-repeat center;
+	background-size: cover;
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	cursor: default;
+	overflow: hidden;
+}
+
+#wustache-edit-post	.images li:hover {
+	color: black;
+	border: 1px solid #aaa;
+	box-shadow: 0 2px 0 rgba(0,0,0,.12);
+}
+
+#wustache-edit-post	.images li .pull-right {
+	float: right;
+}
+
+#wustache-edit-post li i {
+	text-align: center;
+	display: block;
+	padding: 2px 6px;
+	margin: 3px;
+	background: white;
+	border-radius: 2px;
+	text-shadow: 0 1px 0 white;
+	opacity: 0;
+	cursor: pointer;
+}
+
+#wustache-edit-post li:hover i { opacity: 1; }
+
+
+#wustache-edit-post li i:hover { opacity: .8; }
+
+#wustache-edit-post	.images li div {
+	float: left;
+	padding: 10px;
+	min-width: 25%;
+	max-width: 75%;
+	min-height: 53px;
+	box-sizing: border-box;
+	background: rgba(255,255,255,.82);
+	text-shadow: 0 1px 0 white;
+}
+
+#wustache-edit-post	.images li:first-child span {
+	font-weight: 800;
+}
+
+#wustache-edit-post .add-image {
+	padding: 8px;
+	border-width: 0;
+	border-radius: 3px;
+	border-bottom: 3px solid #e6e6ee;
+	background: #ececec;
+	font-size: 32px;
+	text-align: center;
+}
+
+#wustache-edit-post .add-image:hover {
+	background: #ddddef;
+	border-bottom-color: #bbc;
+	color: black;
+}

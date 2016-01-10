@@ -1,0 +1,39 @@
+<h3>Selected Template</h3>
+
+<ul class='templates'>
+
+	<select>
+		<option value='0' disabled='disabled'>No template...</option>
+	{{#templates}}
+		<option value='{{.}}'>{{.}}</option>
+	{{/templates}}
+	</select>
+	
+	<br><br>
+	<input type='checkbox' name='dark' {{#dark}}checked='checked' {{/dark}}/> Dark version
+	
+</ul>
+
+<hr>
+
+<h3>{{cpt}} Images</h3>
+
+<ul class='images'>
+
+{{#images}}
+	<li style='background-image: url({{url}});' data-id='{{id}}'>
+	
+		<span class="pull-right">
+			<i class='ion-trash-a remove-attachment'></i>
+			<i class='ion-edit edit-attachment'></i>
+		</span>
+		<div>{{title}}</div>
+	</li>
+{{/images}}
+</ul>
+
+<div class='add-image'><i class='ion-ios-plus-empty'></i></div>
+
+<input type='hidden' name='template'  id='template' value="{{template}}" />
+<input type='hidden' name='attachments' id='attachments' />
+<input type='hidden' name='ex-attachments' id='ex-attachments' />

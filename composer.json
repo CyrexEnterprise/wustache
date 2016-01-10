@@ -1,0 +1,30 @@
+{
+	"name": "cloudoki/wustache",
+	"description": "Mustache for Wordpress",
+	"keywords": ["mustache","wordpress","templates"],
+	"homepage": "http://github.com/Cloudoki/wustache",
+	"license": "MIT",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Koen Betsens",
+			"email": "koen@cloudoki.com",
+			"homepage": "http://www.cloudoki.com",
+			"role": "Architect"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"mustache/mustache": "~2.9",
+		"drmonty/chosen": "dev-master"
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"autoload": {
+		"psr-4": {
+            "Cloudoki\\": "src/"
+		}
+	},
+    "minimum-stability": "dev"
+}
