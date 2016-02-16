@@ -47,6 +47,7 @@ class Template
 	 */
 	public function render ($filename, $parameters = null)
 	{
+		
 		return $this->mustache
 			->loadTemplate ($filename)
 			->render ($parameters);

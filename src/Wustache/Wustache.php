@@ -111,9 +111,10 @@ class Wustache extends BaseLoader
 		
 		// On post update/save
 		$this->add_action ('save_post', $this->admin, 'post_edit_submit');
-		
-		
-		
+
+		// On post schedule
+		$this->add_action( 'transition_post_status', $this->admin, 'on_all_status_transitions', 10, 3 );
+
 		// $this->add_action ('save_post', $this->admin, 'admin_post_submitbox_submit');
 		
 		

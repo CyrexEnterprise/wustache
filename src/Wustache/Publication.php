@@ -33,15 +33,18 @@ class Publication
 		$params->iterate	= $this->iterate ();
 		$params->spill		= $this->spill ();
 		$params->images		= [];
-		
+
 		if (!$params->post) $params->post = get_post ();
-		$wulist = get_post_meta ($params->post->ID, '_thumbnail_list', true);
-		
-		
+			$wulist = get_post_meta ($params->post->ID, '_thumbnail_list', true);
+
+			if( $wulist == '[]' ){
+				$wulist = get_post_meta ($params->post->ID, '_scheduled_thumbnail_list', true);
+			}
+
+		$images = [];
 		# All image data
-		if ($wulist)
-		{	
-			$images = [];
+		if ( $wulist && $wulist != '[]' ){
+			
 			$wulist = json_decode ($wulist);
 			
 			$results = get_posts (['posts_per_page' => count ($wulist), 'post_type' => 'attachment', 'post__in' => $wulist]);
@@ -61,8 +64,14 @@ class Publication
 				
 				return $img;
 			}, $raw);*/
+		} else if ( get_post_meta ($params->post->ID, '_thumbnail_id', true) || get_post_meta ($params->post->ID, '_scheduled_thumbnail_id', true) ) {
+			$image = get_post( get_post_meta ($params->post->ID, '_thumbnail_id', true) ) || get_post_meta ($params->post->ID, '_scheduled_thumbnail_id', true);
+			if( $image ){
+				$params->images[$image->ID] = $image;
+				$params->images[$image->ID]->url = $image->guid;
+			}
 		}
-		
+
 		# The Author
 		$author = $params->post->post_author;
 		$params->author = (object)
