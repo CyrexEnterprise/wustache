@@ -27,7 +27,7 @@ class Publication
 	{
 		# sugar the parameters
 		if (is_array ($params)) $params = (object) $params;	
-		
+
 		$params->get_field	= $this->get_field ();
 		$params->get_option = $this->get_option ();
 		$params->iterate	= $this->iterate ();
@@ -35,6 +35,7 @@ class Publication
 		$params->images		= [];
 
 		if (!$params->post) $params->post = get_post ();
+
 			$wulist = get_post_meta ($params->post->ID, '_thumbnail_list', true);
 
 			if( $wulist == '[]' ){
@@ -52,7 +53,9 @@ class Publication
 			
 			foreach($wulist as $wuid)
 			{	
-				$images[$wuid]->url = $images[$wuid]->guid;
+				if ( $images[$wuid]->guid ){
+					$images[$wuid]->url = $images[$wuid]->guid;
+				}
 				$params->images[] = $images[$wuid];
 			}
 			/*$raw = get_posts (['post_type' => 'attachment', 'post__in' => json_decode ($wulist)]);
@@ -68,7 +71,9 @@ class Publication
 			$image = get_post( get_post_meta ($params->post->ID, '_thumbnail_id', true) ) || get_post_meta ($params->post->ID, '_scheduled_thumbnail_id', true);
 			if( $image ){
 				$params->images[$image->ID] = $image;
-				$params->images[$image->ID]->url = $image->guid;
+				if( $image->guid ){
+					$params->images[$image->ID]->url = $image->guid;
+				}
 			}
 		}
 
@@ -93,11 +98,10 @@ class Publication
 		/*	"It is my conviction that this project remains problematic.",
 			"How can we reconcile the apparent contradiction between the resolute essence of design and the indefinite aim of non-calibration?"*/
 		];
-		
-		
+
 		# Store params
 		$this->cache = $params;
-		
+
 		# Render template
 		echo $this->mustache->render ($params->template, $params);
 	}

@@ -44,9 +44,14 @@ class Admin
 	{
 		# Hide views
 		// remove_meta_box ('postimagediv', null, null);	
-		
+
 		# Render template
-		add_meta_box ('wustache-edit-post', 'Template', array( $this, 'post_edit_metabox' ), null, 'side', 'high');
+		$blocked_cpts = array('acf-field-group', 'attachment' );
+
+		if ( !in_array( get_post_type(), $blocked_cpts ) ){
+			add_meta_box ('wustache-edit-post', 'Template', array( $this, 'post_edit_metabox' ), null, 'side', 'high');
+		}
+
 	}
 	
 	/**
