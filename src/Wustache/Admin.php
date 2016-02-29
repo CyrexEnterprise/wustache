@@ -148,7 +148,7 @@ class Admin
 	}
 
 
-	public function listTemplates ($id)
+	public function listTemplates ( $id = null )
 	{
 		$files = [];
 		

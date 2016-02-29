@@ -24,7 +24,7 @@ class Template
 	public function __construct ($path = null, $helpers = null)
 	{
 		// Get default dir
-		$this->cwd = $path? : get_template_directory () . '/' . get_option ("wustache_base_folder", $this->base_folder);
+		$this->cwd = $path? : get_template_directory () . '/' . get_option ("wustache_base_folder", self::$base_folder);
 		
 		// Load Mustache
 		$this->mustache = new \Mustache_Engine (

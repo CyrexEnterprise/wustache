@@ -60,27 +60,27 @@ class Wustache extends BaseLoader
 	public function enqueue_files ()
 	{
 		// Wustache
-		wp_register_style( 'wustache_admin_css', plugin_dir_url( __DIR__ ) . 'assets/css/wustache-admin.css', false, $this->version );
+		wp_register_style( 'wustache_admin_css', plugin_dir_url( __DIR__ ) . 'assets/css/wustache-admin.css', false, self::$version );
 		wp_enqueue_style ( 'wustache_admin_css' );
 		
 		// Chosen
-		wp_register_style( 'chosen_admin_css', plugin_dir_url( __DIR__ ) . '../vendor/drmonty/chosen/css/chosen.min.css', false, $this->version );
+		wp_register_style( 'chosen_admin_css', plugin_dir_url( __DIR__ ) . '../vendor/drmonty/chosen/css/chosen.min.css', false,self::$version );
 		wp_enqueue_style( 'chosen_admin_css' );
 		
 		// Ionic Icons
-		wp_register_style( 'ionicons_admin_css', 'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css', false, $this->version );
+		wp_register_style( 'ionicons_admin_css', 'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css', false, self::$version );
 		wp_enqueue_style( 'ionicons_admin_css' );
 		
 		// Wustache
-		wp_register_script( 'wustache_admin_js', plugin_dir_url( __DIR__ ) . 'assets/js/wustache-admin.js', ['jquery'], $this->version );
+		wp_register_script( 'wustache_admin_js', plugin_dir_url( __DIR__ ) . 'assets/js/wustache-admin.js', ['jquery'], self::$version );
 		wp_enqueue_script( 'wustache_admin_js' );
 		
 		// Chosen
-		wp_register_script( 'chosen_admin_js', plugin_dir_url( __DIR__ ) . '../vendor/drmonty/chosen/js/chosen.jquery.min.js', ['jquery'], $this->version );
+		wp_register_script( 'chosen_admin_js', plugin_dir_url( __DIR__ ) . '../vendor/drmonty/chosen/js/chosen.jquery.min.js', ['jquery'], self::$version );
 		wp_enqueue_script( 'chosen_admin_js' );
 		
 		// Draggable UI
-		wp_register_script( 'draggable_admin_js', '//code.jquery.com/ui/1.11.4/jquery-ui.js', ['jquery'], $this->version );
+		wp_register_script( 'draggable_admin_js', '//code.jquery.com/ui/1.11.4/jquery-ui.js', ['jquery'], self::$version );
 		wp_enqueue_script( 'draggable_admin_js' );
 	}
 
