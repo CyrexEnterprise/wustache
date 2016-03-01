@@ -46,7 +46,7 @@ class Admin
 		// remove_meta_box ('postimagediv', null, null);	
 
 		# Render template
-		$blocked_cpts = array('acf-field-group', 'attachment' );
+		$blocked_cpts = array('acf-field-group', 'attachment', 'page' );
 
 		if ( !in_array( get_post_type(), $blocked_cpts ) ){
 			add_meta_box ('wustache-edit-post', 'Template', array( $this, 'post_edit_metabox' ), null, 'side', 'high');
@@ -91,17 +91,17 @@ class Admin
 		$post = $post?: $_POST;
 
 		// Update contrast
-		update_post_meta( $post_id, '_template_contrast', $post['dark']? 'dark': 'light');
+		update_post_meta( $post_id, '_template_contrast', isset( $post['dark'] )? 'dark': 'light');
 
 		// Update template
-		if($post['template']) {
+		if( isset( $post['template'] ) ) {
 			update_post_meta( $post_id, '_template_slug', $post['template']);
 		}
 
 		// Get attachment ids
 		$current = $this->listImages (true);
 
-		$newids = $post['attachments'] ? explode (',', $post['attachments']): [];
+		$newids = isset( $post['attachments'] ) ? explode (',', $post['attachments']): [];
 
 
 		// Featured image
@@ -247,7 +247,7 @@ class Admin
 						];
 			}
 			// Attachments
-			$images =& get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post_id);
+			$images = get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post_id);
 			
 			foreach ($images as $img)
 				

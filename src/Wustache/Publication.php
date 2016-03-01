@@ -53,10 +53,11 @@ class Publication
 			
 			foreach($wulist as $wuid)
 			{	
-				if ( $images[$wuid]->guid ){
+				if ( !empty( $images ) && $images[$wuid]->guid ){
 					$images[$wuid]->url = $images[$wuid]->guid;
+					$params->images[] = $images[$wuid];
 				}
-				$params->images[] = $images[$wuid];
+				
 			}
 			/*$raw = get_posts (['post_type' => 'attachment', 'post__in' => json_decode ($wulist)]);
 		
@@ -69,7 +70,7 @@ class Publication
 			}, $raw);*/
 		} else if ( get_post_meta ($params->post->ID, '_thumbnail_id', true) || get_post_meta ($params->post->ID, '_scheduled_thumbnail_id', true) ) {
 			$image = get_post( get_post_meta ($params->post->ID, '_thumbnail_id', true) ) || get_post_meta ($params->post->ID, '_scheduled_thumbnail_id', true);
-			if( $image ){
+			if( $image ){ 
 				$params->images[$image->ID] = $image;
 				if( $image->guid ){
 					$params->images[$image->ID]->url = $image->guid;
@@ -99,6 +100,17 @@ class Publication
 			"How can we reconcile the apparent contradiction between the resolute essence of design and the indefinite aim of non-calibration?"*/
 		];
 
+		if( is_array( $params->posts ) ){
+			$params->rel_posts = array();
+			$counter = 0;
+			foreach ( $params->posts as $post ) {
+				if ( $counter != 0 ){
+					array_push( $params->rel_posts , $post );
+				}
+				$counter++;
+			}
+		}
+
 		# Store params
 		$this->cache = $params;
 
@@ -121,11 +133,11 @@ class Publication
 		return function ($block, $lambda) {     
 				
 			$identifier = '\.#/';
-			
+			$trigger = null;
 			# This needs a better solution
 			foreach ($this->cache as $key => $param)
 			
-				if (!$this->finished[$key] && is_array ($param) && count ($param) && preg_match ('/\b' . $key . $identifier, $block))
+				if (@!$this->finished[$key] && is_array ($param) && count ($param) && preg_match ('/\b' . $key . $identifier, $block))
 				{
 					$trigger = true;
 					$block = preg_replace ('/'. $key . $identifier, $key . '.' . key ($param), $block);
@@ -147,16 +159,14 @@ class Publication
 			
 			# This needs a better solution
 			foreach ($this->cache as $key => $param)
-			
-				if (!$this->finished[$key] && is_array ($param) && count ($param) && preg_match ($identifier . $key . '/', $block))
+				
+				if (@!$this->finished[$key] && is_array ($param) && count ($param) && preg_match ($identifier . $key . '/', $block))
 				{
 					for (key($this->cache->{$key}); key($this->cache->{$key}) !== null; next($this->cache->{$key}))
 						
 						$cummul .= preg_replace ($identifier . $key . '/', '{{' . $key . '.' . key($this->cache->{$key}), $block);
 				}
-						
-			
-			
+
 			return $lambda->render ($cummul);
 		};
 	}
