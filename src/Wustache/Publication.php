@@ -100,17 +100,6 @@ class Publication
 			"How can we reconcile the apparent contradiction between the resolute essence of design and the indefinite aim of non-calibration?"*/
 		];
 
-		if( is_array( $params->posts ) ){
-			$params->rel_posts = array();
-			$counter = 0;
-			foreach ( $params->posts as $post ) {
-				if ( $counter != 0 ){
-					array_push( $params->rel_posts , $post );
-				}
-				$counter++;
-			}
-		}
-
 		# Store params
 		$this->cache = $params;
 
